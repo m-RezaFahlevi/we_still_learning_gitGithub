@@ -21,3 +21,10 @@ w <- 1 + sqrt(x)/2  #A 'weight' vector of standard deviations
 print(x)
 print(w)
 
+dummy <- data.frame(x=x, y= x + rnorm(x)*w)
+print(dummy) #Make a data frame of two columns, x and y
+fm <- lm(y~x, data=dummy) #lm stand for linear models
+
+#Fit a simple linear regression and look at the analysis.
+#With y to the left of the tilde, we are modelling y dependent on x
+summary(fm)
