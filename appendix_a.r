@@ -27,4 +27,4 @@ fm <- lm(y~x, data=dummy) #lm stand for linear models
 
 #Fit a simple linear regression and look at the analysis.
 #With y to the left of the tilde, we are modelling y dependent on x
-summary(fm)
+print(summary(fm))
