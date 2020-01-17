@@ -13,7 +13,7 @@ def get_url(some_url):
     
     try:
         bs = BeautifulSoup(html.read(), 'html5lib')
-        getTag = bs
+        getTag = bs.body.get_text()
     except URLError:
         print(URLError)
         return None
