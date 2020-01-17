@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from urllib.error import HTTPError
 from urllib.error import URLError
 
-#functional-oriented style
+#function scrape the url
 #def getTitle(someUrl):
 #    try:
 #        html = urlopen(someUrl)
@@ -19,7 +19,6 @@ from urllib.error import URLError
 #pyVar = getTitle('http://www.pythonscraping.com/pages/page1.html')
 
 #print("title could not be found") if pyObject == None else print(pyObject)
-
 
 #Object Oriented Style
 class WebScraping:
