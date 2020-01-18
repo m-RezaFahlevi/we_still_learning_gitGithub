@@ -36,3 +36,16 @@ names <- c("Andi", "Budi", "Rini")
 age <- c(22, 23, 24)
 my_data <- data.frame(names, age)
 print(my_data[,c(1)])
+
+#reading files
+get_data <- read.table('some_data.csv', header = T, sep = ",")
+get_data
+print(length(get_data))
+
+#print(get_data[,2])
+#print(mean(get_data[,2]))
+for(j in 2:length(get_data)) {
+  just_vector <- mean(get_data[,j])
+}
+
+print(x_vector)
