@@ -8,21 +8,59 @@ output: html_notebook
 print("Bidoof")
 ```
 
-```{r}
-#Created some list
-some_list <- c(23, 43, 12)
-names(some_list) <- c('age', 'year', 'something')
-print(some_list)
+Suppose, for example, we have a sample of 30 tax accountants from all the states and territories
+of Australia 1 and their individual state of origin is specified by a character vector of state
+mnemonics as
 
-#according r documentation
-lst <- list(name='Fred', wife='Mary', no.children=3, child.ages=c(4,7,9))
-print(lst)
-print(length(lst))
-#print some component of list
-print(lst$child.ages)
-print(lst[['name']])
-print(lst$name)
-print(
-  lst$name == lst[['name']]  #An equivalent statement
-)
+```{r}
+state <- c("tas","qld","sa","sa","sa","vic","nt","act","qld","nsw","wa","nsw","nsw","vic","vic","vic","nsw","qld","qld","vic","nt", "wa", "wa","qld", "sa", "tas","nsw", "nsw", "wa","act")
+print(length(state))
+statef <- factor(state)
+print(statef)
+print(levels(statef))
 ```
+
+To continue the previous example, suppose we have the incomes of the same tax accountants in
+another vector (in suitably large units of money)
+
+```{r}
+incomes <- c(60, 49, 40, 61, 64, 60, 59, 54, 62, 69, 70, 42, 56,
+61, 61, 61, 58, 51, 48, 65, 49, 49, 41, 48, 52, 46,
+59, 46, 58, 43)
+print(length(incomes))
+print(incomes)
+
+#To calculate the sample mean income for each state 
+#we can now use the special function tapply()
+incmeans <- tapply(incomes, statef, mean)
+print(incmeans)
+```
+
+Objects satisfying the restrictions placed on the columns (components) of a data frame may be
+used to form one using the function data.frame
+
+```{r}
+accountants <- data.frame(home=statef, loot=incomes, shot=incomes)
+print(accountants)
+print(accountants$home)
+print(accountants$loot)
+```
+
+Reading data from from files.
+In this section, we will learn about how to manage an data/information
+from some files {.xls, .csv, ... , etc}
+
+```{r}
+pulsar_star <- read.csv("predicting-a-pulsar-star/pulsar_stars.csv", header=TRUE, sep=",", nrows=500, colClasses = c(rep('double', 3), rep('NULL', 6)))
+names(pulsar_star) <- c('mean(int_prof)', 'std(int_prof)', 'excKurt(int_prof)')
+print(pulsar_star)
+
+Mean.of.the.integrated.profile <- c(pulsar_star$`mean(int_prof)`)
+Standard.deviation.of.the.integrated.profile <- c(pulsar_star$`std(int_prof)`)
+Excess.kurtosis.of.the.integrated.profile <- c(pulsar_star$`excKurt(int_prof)`)
+
+hist(Mean.of.the.integrated.profile, 50, col='blue')
+hist(Standard.deviation.of.the.integrated.profile, 50, col='blue')
+hist(Excess.kurtosis.of.the.integrated.profile, 50, col='blue')
+```
+
