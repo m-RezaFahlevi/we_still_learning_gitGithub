@@ -1,0 +1,28 @@
+---
+title: "R Notebook"
+output: html_notebook
+
+---
+
+```{r}
+print("Bidoof")
+```
+
+```{r}
+#Created some list
+some_list <- c(23, 43, 12)
+names(some_list) <- c('age', 'year', 'something')
+print(some_list)
+
+#according r documentation
+lst <- list(name='Fred', wife='Mary', no.children=3, child.ages=c(4,7,9))
+print(lst)
+print(length(lst))
+#print some component of list
+print(lst$child.ages)
+print(lst[['name']])
+print(lst$name)
+print(
+  lst$name == lst[['name']]  #An equivalent statement
+)
+```
