@@ -46,6 +46,17 @@ print(accountants$home)
 print(accountants$loot)
 ```
 
+Reading some_datum.csv files
+
+```{r}
+library(readr)
+some_datum <- read_csv('some_datum.csv')
+print(some_datum)
+View(some_datum)
+```
+
+
+
 Reading data from from files.
 In this section, we will learn about how to manage an data/information
 from some files {.xls, .csv, ... , etc}
