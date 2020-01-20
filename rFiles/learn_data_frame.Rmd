@@ -13,7 +13,10 @@ of Australia 1 and their individual state of origin is specified by a character 
 mnemonics as
 
 ```{r}
-state <- c("tas","qld","sa","sa","sa","vic","nt","act","qld","nsw","wa","nsw","nsw","vic","vic","vic","nsw","qld","qld","vic","nt", "wa", "wa","qld", "sa", "tas","nsw", "nsw", "wa","act")
+state <- c("tas","qld","sa","sa",
+           "sa","vic","nt","act","qld","nsw","wa","nsw",
+           "nsw","vic","vic","vic","nsw","qld","qld","vic","nt", 
+           "wa", "wa","qld", "sa", "tas","nsw", "nsw", "wa","act")
 print(length(state))
 statef <- factor(state)
 print(statef)
