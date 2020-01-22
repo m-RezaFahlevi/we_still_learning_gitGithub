@@ -1,0 +1,82 @@
+---
+title: "Solving linear equation"
+output: html_notebook
+---
+Suppose that we have linear equation such that
+$$
+\begin{align}
+  2x + 4y + 5z = -3 && \\
+  3x + 2y + z = 2 && \\
+  4x + y + 3z = 1 \\
+\end{align}
+$$
+We can describe this system of linear equation.
+
+## Simultaneous Linear Equation Description
+### Trasform into Matrix Form and Solve for x, y, and z
+In order to write the equation into its matrix, we need to write down the vector first, then we write its matrix
+
+```{r}
+vector_x <- c(2, 3, 4)
+vector_y <- c(4, 2, 1)
+vector_z <- c(5, 1, 3)
+vector_out <- c(-3, 2, 1)
+
+#Write the linear equation in the term of data frame
+some_labels <- c('x_lands', 'y_lands', 'z_lands', 'output')
+datum <- list(vector_x, vector_y, vector_z, vector_out)
+names(datum) <- some_labels
+data_frame <- data.frame(datum)
+print(data_frame)
+#Create the matrix
+matrix_A <- matrix(cbind(vector_x, vector_y, vector_z), nrow=3, ncol=3, byrow=FALSE)
+```
+This is matrix A and its $det(A)$
+```{r}
+print(matrix_A)
+cat("The determinant :", det(matrix_A))
+```
+And this is the invers of matrix A, $A^{-1}$ and its $det(A^{-1})$: 
+```{r}
+invers_matrix_A <- solve(matrix_A)
+print(invers_matrix_A)
+cat("The determinant :", det(invers_matrix_A))
+```
+
+We can find the value ($x,y,z$) using equation $$\textbf{x}=A^{-1} \textbf{y}$$
+```{r}
+X <- solve(matrix_A)%*%vector_out
+X_data_frame <- data.frame(x_value=X[1], y_value=X[2], z_value=X[3])
+print(X_data_frame)
+```
+### Eigen-Value, Eigen-Vector, and Diagonalisation
+We can find the eigen-value of matrices using equation
+$$
+det(\lambda I - A) = 0
+$$
+By solving the characteristic-equation
+$$
+a_n \lambda^n + a_{n-1} \lambda^{n-1} + ... + a_0 \lambda^0 = 0
+$$
+The eigen-value of matrix A is {$\lambda_1, \lambda_2, ... , \lambda_n$}.
+It can be done in R using function eigen.
+```{r}
+#Find eigen-value and eigen-vector of matrix A and its determinant
+print(eigen(matrix_A))
+print(paste0("The determinant :", det(eigen(matrix_A)$vectors)))
+
+
+#Find the invers of eigen-vectors and its determinant
+print(solve(eigen(matrix_A)$vectors))
+print(paste0("The determinant :", det(eigen(solve(matrix_A))$vectors)))
+```
+The diagonalisation of matrix A is defined as
+$$
+V^{-1} A V
+$$
+Where V is defined as its eigen-vector of matrix A
+```{r}
+matrix_A_diagonal <- solve(eigen(matrix_A)$vectors)%*%matrix_A%*%eigen(matrix_A)$vectors
+print(diag(diag(matrix_A_diagonal)))
+```
+
