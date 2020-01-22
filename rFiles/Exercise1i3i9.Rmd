@@ -1,5 +1,6 @@
 ---
 title: "Solving linear equation"
+author: "Muhammad Reza Fahlevi"
 output: html_notebook
 ---
 Suppose that we have linear equation such that
