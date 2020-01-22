@@ -44,7 +44,7 @@ print(data_frame_of_DN_SNR_curve)
 ```
 Visualize the data using histogram
 ```{r}
-hist(data_frame_of_integrated_profile[[1]], xlab='range', main='mean_of_integrated_profile', col='blue')
+hist(data_frame_of_integrated_profile[[1]], xlab='range', main='mean_of_integrated_profile', col='blue',100)
 hist(data_frame_of_integrated_profile[[2]], xlab='range', main='Standard_Deviation_of_integrated_profile', col='blue')
 hist(data_frame_of_integrated_profile[[3]], xlab='range', main='Exces_Kurtosis_of_integrated_profile', col='blue')
 hist(data_frame_of_integrated_profile[[4]], xlab='range', main='Skewness_of_integrated_profile', col='blue')
@@ -57,5 +57,5 @@ hist(data_frame_of_DN_SNR_curve[[4]], xlab='range', main='Skewness_of_DN_SNR_cur
 Since we have 8 column, the number of arrangement for 8 object with 2 cells is equals to C(8,2) = 8!/(8-2)!2!
 We need to plot this possibility arrengement using plot function
 ```{r}
-plot(data_frame_of_DN_SNR_curve$Mean, data_frame_of_DN_SNR_curve$Standard_Deviation, pch='+', col='blue')
+plot(data_frame_of_DN_SNR_curve$Mean, data_frame_of_DN_SNR_curve$Standard_Deviation, col='blue')
 ```
