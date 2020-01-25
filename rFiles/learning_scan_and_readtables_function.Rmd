@@ -89,10 +89,55 @@ print("Attribute was not found maybe") if(stPyObject.getUrl() == None) else prin
 Suppose that we are given a table where the element of its there exist an empty value. For example.
 ```{python}
 ndPyObject = WebScraping("https://stats.idre.ucla.edu/stat/data/test_missing_comma.txt")
+```
+```{python}
 print("Attribute maybe not found") if(ndPyObject.getUrl == None) else print(ndPyObject.getUrl())
 ```
 ```{r}
 (nd_example <- read.table("https://stats.idre.ucla.edu/stat/data/test_missing_comma.txt", header=TRUE, sep=","))
 print(as.list(nd_example))
 ```
+```{python}
+#Reading the csv files
+thrdPyObject = WebScraping('https://stats.idre.ucla.edu/stat/data/test.csv')
+```
+```{python}
+print("The attribute not found maybe") if(thrdPyObject.getUrl() == None) else print(thrdPyObject.getUrl())
+```
+```{r}
+thrd_example <- read.csv("https://stats.idre.ucla.edu/stat/data/test.csv", header = TRUE)
+print(thrd_example)
+```
+
+```{python}
+fourthPyObject = WebScraping('https://stats.idre.ucla.edu/stat/data/testsemicolon.txt')
+fifthPyObject = WebScraping('https://stats.idre.ucla.edu/stat/data/testz.txt')
+```
+It is also possible to read using read.tables with other delimeters
+```{python}
+print("Attribute not found maybe") if(fourthPyObject.getUrl() == None) else print(fourthPyObject.getUrl())
+
+print("Attribute not found maybe") if(fifthPyObject.getUrl() == None) else print(fifthPyObject.getUrl())
+```
+```{r}
+#Read the datum whicha has delimeters=';'
+fourth_example <- read.table("https://stats.idre.ucla.edu/stat/data/testsemicolon.txt", header=TRUE, sep=";")
+
+fifth_example <- read.table("https://stats.idre.ucla.edu/stat/data/testz.txt", header=TRUE, sep="z")
+print(fourth_example)
+print(fifth_example)
+```
+## Reading in fixed formated files
+```{python}
+sixthPyObject = WebScraping('https://stats.idre.ucla.edu/stat/data/test_fixed.txt')
+```
+```{python}
+print("Attribute not found maybe") if(sixthPyObject.getUrl() == None) else print(sixthPyObject.getUrl())
+```
+```{r}
+sixth_examples <- read.fwf("https://stats.idre.ucla.edu/stat/data/test_fixed.txt", width=c(8, 1, 3, 1, 1, 1))
+dimnames(sixth_examples)[[2]] <- c("prgtyp", "gender", "id", "ses", "schtyp", "level")
+sixth_examples
+```
+
 
