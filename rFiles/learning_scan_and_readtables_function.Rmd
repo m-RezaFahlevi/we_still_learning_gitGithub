@@ -6,8 +6,8 @@ output:
 ---
 In this notebook, we will learn how to use read.tables function in order to read some data. In this case, I'll scrape it some data external using python code and read the data using R.
 
-## A. $scan$ Function
-Suppose that the data that we want to read is locate in https://stats.idre.ucla.edu/stat/data/scan.txt
+## A. Creating a WebScraping Class
+In this notebook, I use the data from some url. But, before we can scrape some data in that url, we need to create a webscraping class with getUrl method using python.
 
 ```{r}
 #Use reticulate package
@@ -22,11 +22,12 @@ use_python("/usr/bin/python", required = T)
 #print(bs)
 
 ```
-
-
+Prepare and set up the environment for web scraping
 ```{python}
+#Set up the package for web scraping
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
+#Set up the package for exception handling
 from urllib.error import HTTPError
 from urllib.error import URLError
 
@@ -56,12 +57,42 @@ class WebScraping:
     
     return theData
 ```
-Print the results of scraping from the url
+Now, we are ready to learn scan and read.tables function
+
+## B. $scan$ function
+Suppose that we have a data as below
 ```{python}
 #Create the python object
-pyObject = WebScraping('https://stats.idre.ucla.edu/stat/data/test.txt')
+pyObject = WebScraping('https://stats.idre.ucla.edu/stat/data/scan.txt')
 ```
 ```{python}
-print(pyObject.getUrl())
+print("Tag was not there") if(pyObject.getUrl() == None) else print(pyObject.getUrl())
+```
+```{r}
+#We can read the data using scan() as follows
+some_data <- scan('https://stats.idre.ucla.edu/stat/data/scan.txt', what=list(age=0, names=""))
+print(some_data)
+```
+## $read.tables$ function
+Here, we are discuss about very reliable to read data into R
+```{python}
+stPyObject = WebScraping('https://stats.idre.ucla.edu/stat/data/test.txt')
+print("Attribute was not found maybe") if(stPyObject.getUrl() == None) else print(stPyObject.getUrl())
+```
+
+```{r}
+#In the data frame form
+(st_example <- read.table("https://stats.idre.ucla.edu/stat/data/test.txt", header = TRUE))
+(as.list(st_example))
+```
+### Exception Handling
+Suppose that we are given a table where the element of its there exist an empty value. For example.
+```{python}
+ndPyObject = WebScraping("https://stats.idre.ucla.edu/stat/data/test_missing_comma.txt")
+print("Attribute maybe not found") if(ndPyObject.getUrl == None) else print(ndPyObject.getUrl())
+```
+```{r}
+(nd_example <- read.table("https://stats.idre.ucla.edu/stat/data/test_missing_comma.txt", header=TRUE, sep=","))
+print(as.list(nd_example))
 ```
 

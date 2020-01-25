@@ -1752,9 +1752,9 @@ summary {
 
 <!-- rnb-text-begin -->
 <p>In this notebook, we will learn how to use read.tables function in order to read some data. In this case, I’ll scrape it some data external using python code and read the data using R.</p>
-<div id="a.-scan-function" class="section level2">
-<h2>A. <span class="math inline">\(scan\)</span> Function</h2>
-<p>Suppose that the data that we want to read is locate in <a href="https://stats.idre.ucla.edu/stat/data/scan.txt" class="uri">https://stats.idre.ucla.edu/stat/data/scan.txt</a></p>
+<div id="a.-creating-a-webscraping-class" class="section level2">
+<h2>A. Creating a WebScraping Class</h2>
+<p>In this notebook, I use the data from some url. But, before we can scrape some data in that url, we need to create a webscraping class with getUrl method using python.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1VzZSByZXRpY3VsYXRlIHBhY2thZ2VcbmxpYnJhcnkoXCJyZXRpY3VsYXRlXCIpXG51c2VfcHl0aG9uKFwiL3Vzci9iaW4vcHl0aG9uXCIsIHJlcXVpcmVkID0gVClcbiNCcmluZ2luZyBweXRob24zIHRvIFJcblxuI3B5X3VybGxpYl9yZXF1ZXN0IDwtIGltcG9ydChcInVybGxpYi5yZXF1ZXN0XCIpXG4jcHlfYnM0IDwtIGltcG9ydChcImJzNFwiKVxuI2h0bWwgPC0gcHlfdXJsbGliX3JlcXVlc3QkdXJsb3BlbihcImh0dHBzOi8vc3RhdHMuaWRyZS51Y2xhLmVkdS9zdGF0L2RhdGEvdGVzdC50eHRcIilcbiNicyA8LSBweV9iczQkQmVhdXRpZnVsU291cChodG1sJHJlYWQoKSwgXCJodG1sNWxpYlwiKVxuI3ByaW50KGJzKVxuXG5gYGAifQ== -->
@@ -1772,11 +1772,14 @@ use_python(&quot;/usr/bin/python&quot;, required = T)
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Prepare and set up the environment for web scraping</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5mcm9tIHVybGxpYi5yZXF1ZXN0IGltcG9ydCB1cmxvcGVuXG5mcm9tIGJzNCBpbXBvcnQgQmVhdXRpZnVsU291cFxuZnJvbSB1cmxsaWIuZXJyb3IgaW1wb3J0IEhUVFBFcnJvclxuZnJvbSB1cmxsaWIuZXJyb3IgaW1wb3J0IFVSTEVycm9yXG5cbiNDcmVhdGluZyBhIGNsYXNzIFdlYlNjcmFwaW5nIHdpdGggZ2V0VXJsIG1ldGhvZFxuY2xhc3MgV2ViU2NyYXBpbmc6XG4gIGRlZiBfX2luaXRfXyhzZWxmLCBzb21lVXJsKTpcbiAgICBzZWxmLnNvbWVVcmwgPSBzb21lVXJsXG4gIFxuICBkZWYgZ2V0VXJsKHNlbGYpOlxuICAgIHRyeTpcbiAgICAgIGh0bWwgPSB1cmxvcGVuKHNlbGYuc29tZVVybClcbiAgICBleGNlcHQgSFRUUEVycm9yOlxuICAgICAgcHJpbnQoJ1RoZSB1cmwgaXMgbm90IGF2YWlsYWJsZScpXG4gICAgICBwcmludChIVFRQRXJyb3IpXG4gICAgICByZXR1cm4gTm9uZVxuICAgIHRyeTpcbiAgICAgIGJzID0gQmVhdXRpZnVsU291cChodG1sLnJlYWQoKSwgJ2h0bWw1bGliJylcbiAgICAgIHRoZURhdGEgPSBicy5ib2R5LmdldF90ZXh0KClcbiAgICBleGNlcHQgVVJMRXJyb3I6XG4gICAgICBwcmludChcIk1heWJlIHRoZSBzZXJ2ZXIgaXMgbm90IGF2YWlsYWJsZSBmb3Igbm93XCIpXG4gICAgICBwcmludChVUkxFcnJvcilcbiAgICAgIHJldHVybiBOb25lXG4gICAgZXhjZXB0IEF0dHJpYnV0ZUVycm9yOlxuICAgICAgcHJpbnQoXCJNYXliZSB0aGUgdGFnIGlzIG5vdCB0aGVyZVwiKVxuICAgICAgcHJpbnQoQXR0cmlidXRlRXJyb3IpXG4gICAgICByZXR1cm4gTm9uZVxuICAgIFxuICAgIHJldHVybiB0aGVEYXRhXG5gYGAifQ== -->
-<pre class="python"><code>from urllib.request import urlopen
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG4jU2V0IHVwIHRoZSBwYWNrYWdlIGZvciB3ZWIgc2NyYXBpbmdcbmZyb20gdXJsbGliLnJlcXVlc3QgaW1wb3J0IHVybG9wZW5cbmZyb20gYnM0IGltcG9ydCBCZWF1dGlmdWxTb3VwXG4jU2V0IHVwIHRoZSBwYWNrYWdlIGZvciBleGNlcHRpb24gaGFuZGxpbmdcbmZyb20gdXJsbGliLmVycm9yIGltcG9ydCBIVFRQRXJyb3JcbmZyb20gdXJsbGliLmVycm9yIGltcG9ydCBVUkxFcnJvclxuXG4jQ3JlYXRpbmcgYSBjbGFzcyBXZWJTY3JhcGluZyB3aXRoIGdldFVybCBtZXRob2RcbmNsYXNzIFdlYlNjcmFwaW5nOlxuICBkZWYgX19pbml0X18oc2VsZiwgc29tZVVybCk6XG4gICAgc2VsZi5zb21lVXJsID0gc29tZVVybFxuICBcbiAgZGVmIGdldFVybChzZWxmKTpcbiAgICB0cnk6XG4gICAgICBodG1sID0gdXJsb3BlbihzZWxmLnNvbWVVcmwpXG4gICAgZXhjZXB0IEhUVFBFcnJvcjpcbiAgICAgIHByaW50KCdUaGUgdXJsIGlzIG5vdCBhdmFpbGFibGUnKVxuICAgICAgcHJpbnQoSFRUUEVycm9yKVxuICAgICAgcmV0dXJuIE5vbmVcbiAgICB0cnk6XG4gICAgICBicyA9IEJlYXV0aWZ1bFNvdXAoaHRtbC5yZWFkKCksICdodG1sNWxpYicpXG4gICAgICB0aGVEYXRhID0gYnMuYm9keS5nZXRfdGV4dCgpXG4gICAgZXhjZXB0IFVSTEVycm9yOlxuICAgICAgcHJpbnQoXCJNYXliZSB0aGUgc2VydmVyIGlzIG5vdCBhdmFpbGFibGUgZm9yIG5vd1wiKVxuICAgICAgcHJpbnQoVVJMRXJyb3IpXG4gICAgICByZXR1cm4gTm9uZVxuICAgIGV4Y2VwdCBBdHRyaWJ1dGVFcnJvcjpcbiAgICAgIHByaW50KFwiTWF5YmUgdGhlIHRhZyBpcyBub3QgdGhlcmVcIilcbiAgICAgIHByaW50KEF0dHJpYnV0ZUVycm9yKVxuICAgICAgcmV0dXJuIE5vbmVcbiAgICBcbiAgICByZXR1cm4gdGhlRGF0YVxuYGBgIn0= -->
+<pre class="python"><code>#Set up the package for web scraping
+from urllib.request import urlopen
 from bs4 import BeautifulSoup
+#Set up the package for exception handling
 from urllib.error import HTTPError
 from urllib.error import URLError
 
@@ -1808,14 +1811,51 @@ class WebScraping:
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Print the results of scraping from the url</p>
+<p>Now, we are ready to learn scan and read.tables function</p>
+</div>
+<div id="b.-scan-function" class="section level2">
+<h2>B. <span class="math inline">\(scan\)</span> function</h2>
+<p>Suppose that we have a data as below</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG4jQ3JlYXRlIHRoZSBweXRob24gb2JqZWN0XG5weU9iamVjdCA9IFdlYlNjcmFwaW5nKCdodHRwczovL3N0YXRzLmlkcmUudWNsYS5lZHUvc3RhdC9kYXRhL3Rlc3QudHh0JylcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG4jQ3JlYXRlIHRoZSBweXRob24gb2JqZWN0XG5weU9iamVjdCA9IFdlYlNjcmFwaW5nKCdodHRwczovL3N0YXRzLmlkcmUudWNsYS5lZHUvc3RhdC9kYXRhL3NjYW4udHh0JylcbmBgYCJ9 -->
 <pre class="python"><code>#Create the python object
-pyObject = WebScraping('https://stats.idre.ucla.edu/stat/data/test.txt')</code></pre>
+pyObject = WebScraping('https://stats.idre.ucla.edu/stat/data/scan.txt')</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiMTIgYm9iYnlcbjI0IGthdGVcbjM1IGRhdmlkXG4yMCBtaWNoYWVsXG4ifQ== -->
+<pre><code>12 bobby
+24 kate
+35 david
+20 michael</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1dlIGNhbiByZWFkIHRoZSBkYXRhIHVzaW5nIHNjYW4oKSBhcyBmb2xsb3dzXG5zb21lX2RhdGEgPC0gc2NhbignaHR0cHM6Ly9zdGF0cy5pZHJlLnVjbGEuZWR1L3N0YXQvZGF0YS9zY2FuLnR4dCcsIHdoYXQ9bGlzdChhZ2U9MCwgbmFtZXM9XCJcIikpXG5gYGAifQ== -->
+<pre class="r"><code>#We can read the data using scan() as follows
+some_data &lt;- scan('https://stats.idre.ucla.edu/stat/data/scan.txt', what=list(age=0, names=&quot;&quot;))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUmVhZCA0IHJlY29yZHNcbiJ9 -->
+<pre><code>Read 4 records</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQoc29tZV9kYXRhKVxuYGBgIn0= -->
+<pre class="r"><code>print(some_data)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiJGFnZVxuWzFdIDEyIDI0IDM1IDIwXG5cbiRuYW1lc1xuWzFdIFwiYm9iYnlcIiAgIFwia2F0ZVwiICAgIFwiZGF2aWRcIiAgIFwibWljaGFlbFwiXG4ifQ== -->
+<pre><code>$age
+[1] 12 24 35 20
+
+$names
+[1] &quot;bobby&quot;   &quot;kate&quot;    &quot;david&quot;   &quot;michael&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="read.tables-function" class="section level2">
+<h2><span class="math inline">\(read.tables\)</span> function</h2>
+<p>Here, we are discuss about very reliable to read data into R</p>
+<!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-output-begin eyJkYXRhIjoicHJndHlwZSAgZ2VuZGVyICBpZCBzZXMgc2NodHlwICBsZXZlbFxuICBnZW5lcmFsICAgIDAgIDcwICAgIDQgICAxICAgICAgMSAgXG4gICB2b2NhdGkgICAgMSAxMjEgICAgNCAgIDIgICAgICAxICBcbiAgZ2VuZXJhbCAgICAwICA4NiAgICA0ICAgMyAgICAgIDEgIFxuICAgdm9jYXRpICAgIDAgMTQxICAgIDQgICAzICAgICAgMSAgXG4gYWNhZGVtaWMgICAgMCAxNzIgICAgNCAgIDIgICAgICAxICBcbiBhY2FkZW1pYyAgICAwIDExMyAgICA0ICAgMiAgICAgIDEgIFxuICBnZW5lcmFsICAgIDAgIDUwICAgIDMgICAyICAgICAgMSAgXG4gYWNhZGVtaWMgICAgMCAgMTEgICAgMSAgIDIgICAgICAxICBcbiJ9 -->
 <pre><code>prgtype  gender  id ses schtyp  level
@@ -1831,9 +1871,103 @@ pyObject = WebScraping('https://stats.idre.ucla.edu/stat/data/test.txt')</code><
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0luIHRoZSBkYXRhIGZyYW1lIGZvcm1cbihzdF9leGFtcGxlIDwtIHJlYWQudGFibGUoXCJodHRwczovL3N0YXRzLmlkcmUudWNsYS5lZHUvc3RhdC9kYXRhL3Rlc3QudHh0XCIsIGhlYWRlciA9IFRSVUUpKVxuYGBgIn0= -->
+<pre class="r"><code>#In the data frame form
+(st_example &lt;- read.table(&quot;https://stats.idre.ucla.edu/stat/data/test.txt&quot;, header = TRUE))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6NiwibnJvdyI6OH0sInJkZiI6Ikg0c0lBQUFBQUFBQUEzMVMvMDZETUJEdUtEQ0dtVm5pYzBDaUpzWUhNSHNBbzJiL2RxVmpSTlppNmFiN3p4ZndUWHpHNlVGN0NDU3p5WmU3WHI3NzhWMzcrTEM2alZjeElZUVNHbnFFQnVDUzRQbHBtZHdUNG50d21SQ2Z6QnI3QWFRcmNFS3djN0FSd0dzei8rekV3U1lPQzRTbE9JaXlCbS9Sc20wMFlweGxZbGR3ZDUvbVFnck5Ta3c2S001TU1Tb1Y4SkxWV0ttcnYySGNLQTNlQ1lBVEVqZlJ1WU84SmVBSWVBRjhBYjRCYjRBYndFV1A1NThCcWtjZWJvSDJOdFJIbi9jUGhySWwyd21VSGVMQ0twMmJZeVZ3QzdDL1RHaDM4NHJNZWJTR1RFZXArUll5c0dqN0xLTk9NNjNlVSt6V2pPcDkyblZGbGtoL1JzdVBNMlpZdXRHUVloOWdVRzZxS2xNb0NjVzg1Z2NGbytTSkhnVVdlOWswenhLKzNjdlg1UHF1NmRCN3lMbnpvNTRmMnA0K1RoYWdXaUh6UW9wT0xWc0wvRnlYb0xJVm1WYTZrQWFsUUxST2pUTGRKNHk1S2pGaWY5ZnBGK3dEUmdVNUF3QUEifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["prgtype"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["gender"],"name":[2],"type":["int"],"align":["right"]},{"label":["id"],"name":[3],"type":["int"],"align":["right"]},{"label":["ses"],"name":[4],"type":["int"],"align":["right"]},{"label":["schtyp"],"name":[5],"type":["int"],"align":["right"]},{"label":["level"],"name":[6],"type":["int"],"align":["right"]}],"data":[{"1":"general","2":"0","3":"70","4":"4","5":"1","6":"1"},{"1":"vocati","2":"1","3":"121","4":"4","5":"2","6":"1"},{"1":"general","2":"0","3":"86","4":"4","5":"3","6":"1"},{"1":"vocati","2":"0","3":"141","4":"4","5":"3","6":"1"},{"1":"academic","2":"0","3":"172","4":"4","5":"2","6":"1"},{"1":"academic","2":"0","3":"113","4":"4","5":"2","6":"1"},{"1":"general","2":"0","3":"50","4":"3","5":"2","6":"1"},{"1":"academic","2":"0","3":"11","4":"1","5":"2","6":"1"}],"options":{"columns":{"min":{},"max":[10],"total":[6]},"rows":{"min":[10],"max":[10],"total":[8]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuKGFzLmxpc3Qoc3RfZXhhbXBsZSkpXG5gYGAifQ== -->
+<pre class="r"><code>(as.list(st_example))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiJHByZ3R5cGVcblsxXSBnZW5lcmFsICB2b2NhdGkgICBnZW5lcmFsICB2b2NhdGkgICBhY2FkZW1pYyBhY2FkZW1pYyBnZW5lcmFsIFxuWzhdIGFjYWRlbWljXG5MZXZlbHM6IGFjYWRlbWljIGdlbmVyYWwgdm9jYXRpXG5cbiRnZW5kZXJcblsxXSAwIDEgMCAwIDAgMCAwIDBcblxuJGlkXG5bMV0gIDcwIDEyMSAgODYgMTQxIDE3MiAxMTMgIDUwICAxMVxuXG4kc2VzXG5bMV0gNCA0IDQgNCA0IDQgMyAxXG5cbiRzY2h0eXBcblsxXSAxIDIgMyAzIDIgMiAyIDJcblxuJGxldmVsXG5bMV0gMSAxIDEgMSAxIDEgMSAxXG4ifQ== -->
+<pre><code>$prgtype
+[1] general  vocati   general  vocati   academic academic general 
+[8] academic
+Levels: academic general vocati
+
+$gender
+[1] 0 1 0 0 0 0 0 0
+
+$id
+[1]  70 121  86 141 172 113  50  11
+
+$ses
+[1] 4 4 4 4 4 4 3 1
+
+$schtyp
+[1] 1 2 3 3 2 2 2 2
+
+$level
+[1] 1 1 1 1 1 1 1 1</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="exception-handling" class="section level3">
+<h3>Exception Handling</h3>
+<p>Suppose that we are given a table where the element of its there exist an empty value. For example.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoicHJndHlwZSwgIGdlbmRlciwgIGlkLCBzZXMsIHNjaHR5cCwgIGxldmVsXG4gIGdlbmVyYWwsICAgIDAsICA3MCwgICAgNCwgICAxLCAgICAgIDEgIFxuICAgdm9jYXRpLCAgICAxLCAxMjEsICAgIDQsICAgICwgICAgICAxICBcbiAgZ2VuZXJhbCwgICAgMCwgIDg2LCAgICAgLCAgICAsICAgICAgMSAgXG4gICB2b2NhdGksICAgIDAsIDE0MSwgICAgNCwgICAzLCAgICAgIDEgIFxuIGFjYWRlbWljLCAgICAwLCAxNzIsICAgIDQsICAgMiwgICAgICAxICBcbiBhY2FkZW1pYywgICAgMCwgMTEzLCAgICA0LCAgIDIsICAgICAgMSAgXG4gIGdlbmVyYWwsICAgIDAsICA1MCwgICAgMywgICAyLCAgICAgIDEgIFxuIGFjYWRlbWljLCAgICAwLCAgMTEsICAgIDEsICAgMiwgICAgICAxICBcbiJ9 -->
+<pre><code>prgtype,  gender,  id, ses, schtyp,  level
+  general,    0,  70,    4,   1,      1  
+   vocati,    1, 121,    4,    ,      1  
+  general,    0,  86,     ,    ,      1  
+   vocati,    0, 141,    4,   3,      1  
+ academic,    0, 172,    4,   2,      1  
+ academic,    0, 113,    4,   2,      1  
+  general,    0,  50,    3,   2,      1  
+ academic,    0,  11,    1,   2,      1  </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuKG5kX2V4YW1wbGUgPC0gcmVhZC50YWJsZShcImh0dHBzOi8vc3RhdHMuaWRyZS51Y2xhLmVkdS9zdGF0L2RhdGEvdGVzdF9taXNzaW5nX2NvbW1hLnR4dFwiLCBoZWFkZXI9VFJVRSwgc2VwPVwiLFwiKSlcbmBgYCJ9 -->
+<pre class="r"><code>(nd_example &lt;- read.table(&quot;https://stats.idre.ucla.edu/stat/data/test_missing_comma.txt&quot;, header=TRUE, sep=&quot;,&quot;))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6NiwibnJvdyI6OH0sInJkZiI6Ikg0c0lBQUFBQUFBQUE1MVNTMDdETUJDZHhrbmFCcldxeEFWNmdXWkJKY1NPRGVvQkVLQnVqZU8yRWFrZEhMZlFIUmZnSmh5T0V4VEdzWjJta2RnUTZXbkdremYvdWI5YnpwTmxBZ0FFU0J3QWlWQ0Y2UEZoTWJzQkNBTjg5Q0NFb1pIdlNMcEVKVVk1UWpsQVdNSkpFb2ZBeXJNQWNjSDN2S2hRbTlSL3JYVTRuVTcza2xHZG53eHJMcmlpUldPZ2pHWjhtN05Pd0lnVnRQTHhtaXdyeXJSVXFCMFJ2azV3OWYzMWVkNENjVUE4SVQ0Ulg0aFh4Qlhpb3NVTERUNnNiOWdDY1hrOHIyYzRqdWZuMHNiWThHNi9MZUcvc2pzV1FiZmNqeVYyeG42cDF2cFFjajhsSEhIR2xYc0ZlZVkwVXFHbm8xUnNneDQrYUwyOFRxYWhrbStwejJaYURseXJBMHNrUDNDK25DU2ptcVlyaFM1UUwrZ3NYRitXT3BjQ2d3WG16cUtPYzA5MURKT2RNTW16R2R2c3hNdHNmbTB5d0duUkk2Y1BXbnBzYzRhK3NzaDN5OFU2Rjd6cGxqNXpmMzlqN0xKdU1pMVZMclJ2QmExVnFxVnU3alJoc3ZBV2UzM0hYNTFxM0I5ZkF3QUEifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["prgtype"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["gender"],"name":[2],"type":["int"],"align":["right"]},{"label":["id"],"name":[3],"type":["int"],"align":["right"]},{"label":["ses"],"name":[4],"type":["int"],"align":["right"]},{"label":["schtyp"],"name":[5],"type":["int"],"align":["right"]},{"label":["level"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"general","2":"0","3":"70","4":"4","5":"1","6":"1"},{"1":"vocati","2":"1","3":"121","4":"4","5":"NA","6":"1"},{"1":"general","2":"0","3":"86","4":"NA","5":"NA","6":"1"},{"1":"vocati","2":"0","3":"141","4":"4","5":"3","6":"1"},{"1":"academic","2":"0","3":"172","4":"4","5":"2","6":"1"},{"1":"academic","2":"0","3":"113","4":"4","5":"2","6":"1"},{"1":"general","2":"0","3":"50","4":"3","5":"2","6":"1"},{"1":"academic","2":"0","3":"11","4":"1","5":"2","6":"1"}],"options":{"columns":{"min":{},"max":[10],"total":[6]},"rows":{"min":[10],"max":[10],"total":[8]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQoYXMubGlzdChuZF9leGFtcGxlKSlcbmBgYCJ9 -->
+<pre class="r"><code>print(as.list(nd_example))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiJHByZ3R5cGVcblsxXSAgIGdlbmVyYWwgICAgdm9jYXRpICAgZ2VuZXJhbCAgICB2b2NhdGkgIGFjYWRlbWljICBhY2FkZW1pYyAgIGdlbmVyYWxcbls4XSAgYWNhZGVtaWNcbkxldmVsczogICAgdm9jYXRpICAgZ2VuZXJhbCAgYWNhZGVtaWNcblxuJGdlbmRlclxuWzFdIDAgMSAwIDAgMCAwIDAgMFxuXG4kaWRcblsxXSAgNzAgMTIxICA4NiAxNDEgMTcyIDExMyAgNTAgIDExXG5cbiRzZXNcblsxXSAgNCAgNCBOQSAgNCAgNCAgNCAgMyAgMVxuXG4kc2NodHlwXG5bMV0gIDEgTkEgTkEgIDMgIDIgIDIgIDIgIDJcblxuJGxldmVsXG5bMV0gMSAxIDEgMSAxIDEgMSAxXG4ifQ== -->
+<pre><code>$prgtype
+[1]   general    vocati   general    vocati  academic  academic   general
+[8]  academic
+Levels:    vocati   general  academic
+
+$gender
+[1] 0 1 0 0 0 0 0 0
+
+$id
+[1]  70 121  86 141 172 113  50  11
+
+$ses
+[1]  4  4 NA  4  4  4  3  1
+
+$schtyp
+[1]  1 NA NA  3  2  2  2  2
+
+$level
+[1] 1 1 1 1 1 1 1 1</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+</div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiVW5kZXJzdGFuZGluZyByZWFkLnRhYmxlcyBGdW5jdGlvbiBpbiBSIgphdXRob3I6ICJNdWhhbW1hZCBSZXphIEZhaGxldmkiCm91dHB1dDoKICBodG1sX25vdGVib29rOiBkZWZhdWx0Ci0tLQpJbiB0aGlzIG5vdGVib29rLCB3ZSB3aWxsIGxlYXJuIGhvdyB0byB1c2UgcmVhZC50YWJsZXMgZnVuY3Rpb24gaW4gb3JkZXIgdG8gcmVhZCBzb21lIGRhdGEuIEluIHRoaXMgY2FzZSwgSSdsbCBzY3JhcGUgaXQgc29tZSBkYXRhIGV4dGVybmFsIHVzaW5nIHB5dGhvbiBjb2RlIGFuZCByZWFkIHRoZSBkYXRhIHVzaW5nIFIuCgojIyBBLiAkc2NhbiQgRnVuY3Rpb24KU3VwcG9zZSB0aGF0IHRoZSBkYXRhIHRoYXQgd2Ugd2FudCB0byByZWFkIGlzIGxvY2F0ZSBpbiBodHRwczovL3N0YXRzLmlkcmUudWNsYS5lZHUvc3RhdC9kYXRhL3NjYW4udHh0CgpgYGB7cn0KI1VzZSByZXRpY3VsYXRlIHBhY2thZ2UKbGlicmFyeSgicmV0aWN1bGF0ZSIpCnVzZV9weXRob24oIi91c3IvYmluL3B5dGhvbiIsIHJlcXVpcmVkID0gVCkKI0JyaW5naW5nIHB5dGhvbjMgdG8gUgoKI3B5X3VybGxpYl9yZXF1ZXN0IDwtIGltcG9ydCgidXJsbGliLnJlcXVlc3QiKQojcHlfYnM0IDwtIGltcG9ydCgiYnM0IikKI2h0bWwgPC0gcHlfdXJsbGliX3JlcXVlc3QkdXJsb3BlbigiaHR0cHM6Ly9zdGF0cy5pZHJlLnVjbGEuZWR1L3N0YXQvZGF0YS90ZXN0LnR4dCIpCiNicyA8LSBweV9iczQkQmVhdXRpZnVsU291cChodG1sJHJlYWQoKSwgImh0bWw1bGliIikKI3ByaW50KGJzKQoKYGBgCgoKYGBge3B5dGhvbn0KZnJvbSB1cmxsaWIucmVxdWVzdCBpbXBvcnQgdXJsb3Blbgpmcm9tIGJzNCBpbXBvcnQgQmVhdXRpZnVsU291cApmcm9tIHVybGxpYi5lcnJvciBpbXBvcnQgSFRUUEVycm9yCmZyb20gdXJsbGliLmVycm9yIGltcG9ydCBVUkxFcnJvcgoKI0NyZWF0aW5nIGEgY2xhc3MgV2ViU2NyYXBpbmcgd2l0aCBnZXRVcmwgbWV0aG9kCmNsYXNzIFdlYlNjcmFwaW5nOgogIGRlZiBfX2luaXRfXyhzZWxmLCBzb21lVXJsKToKICAgIHNlbGYuc29tZVVybCA9IHNvbWVVcmwKICAKICBkZWYgZ2V0VXJsKHNlbGYpOgogICAgdHJ5OgogICAgICBodG1sID0gdXJsb3BlbihzZWxmLnNvbWVVcmwpCiAgICBleGNlcHQgSFRUUEVycm9yOgogICAgICBwcmludCgnVGhlIHVybCBpcyBub3QgYXZhaWxhYmxlJykKICAgICAgcHJpbnQoSFRUUEVycm9yKQogICAgICByZXR1cm4gTm9uZQogICAgdHJ5OgogICAgICBicyA9IEJlYXV0aWZ1bFNvdXAoaHRtbC5yZWFkKCksICdodG1sNWxpYicpCiAgICAgIHRoZURhdGEgPSBicy5ib2R5LmdldF90ZXh0KCkKICAgIGV4Y2VwdCBVUkxFcnJvcjoKICAgICAgcHJpbnQoIk1heWJlIHRoZSBzZXJ2ZXIgaXMgbm90IGF2YWlsYWJsZSBmb3Igbm93IikKICAgICAgcHJpbnQoVVJMRXJyb3IpCiAgICAgIHJldHVybiBOb25lCiAgICBleGNlcHQgQXR0cmlidXRlRXJyb3I6CiAgICAgIHByaW50KCJNYXliZSB0aGUgdGFnIGlzIG5vdCB0aGVyZSIpCiAgICAgIHByaW50KEF0dHJpYnV0ZUVycm9yKQogICAgICByZXR1cm4gTm9uZQogICAgCiAgICByZXR1cm4gdGhlRGF0YQpgYGAKUHJpbnQgdGhlIHJlc3VsdHMgb2Ygc2NyYXBpbmcgZnJvbSB0aGUgdXJsCmBgYHtweXRob259CiNDcmVhdGUgdGhlIHB5dGhvbiBvYmplY3QKcHlPYmplY3QgPSBXZWJTY3JhcGluZygnaHR0cHM6Ly9zdGF0cy5pZHJlLnVjbGEuZWR1L3N0YXQvZGF0YS90ZXN0LnR4dCcpCmBgYApgYGB7cHl0aG9ufQpwcmludChweU9iamVjdC5nZXRVcmwoKSkKYGBgCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiVW5kZXJzdGFuZGluZyByZWFkLnRhYmxlcyBGdW5jdGlvbiBpbiBSIgphdXRob3I6ICJNdWhhbW1hZCBSZXphIEZhaGxldmkiCm91dHB1dDoKICBodG1sX25vdGVib29rOiBkZWZhdWx0Ci0tLQpJbiB0aGlzIG5vdGVib29rLCB3ZSB3aWxsIGxlYXJuIGhvdyB0byB1c2UgcmVhZC50YWJsZXMgZnVuY3Rpb24gaW4gb3JkZXIgdG8gcmVhZCBzb21lIGRhdGEuIEluIHRoaXMgY2FzZSwgSSdsbCBzY3JhcGUgaXQgc29tZSBkYXRhIGV4dGVybmFsIHVzaW5nIHB5dGhvbiBjb2RlIGFuZCByZWFkIHRoZSBkYXRhIHVzaW5nIFIuCgojIyBBLiBDcmVhdGluZyBhIFdlYlNjcmFwaW5nIENsYXNzCkluIHRoaXMgbm90ZWJvb2ssIEkgdXNlIHRoZSBkYXRhIGZyb20gc29tZSB1cmwuIEJ1dCwgYmVmb3JlIHdlIGNhbiBzY3JhcGUgc29tZSBkYXRhIGluIHRoYXQgdXJsLCB3ZSBuZWVkIHRvIGNyZWF0ZSBhIHdlYnNjcmFwaW5nIGNsYXNzIHdpdGggZ2V0VXJsIG1ldGhvZCB1c2luZyBweXRob24uCgpgYGB7cn0KI1VzZSByZXRpY3VsYXRlIHBhY2thZ2UKbGlicmFyeSgicmV0aWN1bGF0ZSIpCnVzZV9weXRob24oIi91c3IvYmluL3B5dGhvbiIsIHJlcXVpcmVkID0gVCkKI0JyaW5naW5nIHB5dGhvbjMgdG8gUgoKI3B5X3VybGxpYl9yZXF1ZXN0IDwtIGltcG9ydCgidXJsbGliLnJlcXVlc3QiKQojcHlfYnM0IDwtIGltcG9ydCgiYnM0IikKI2h0bWwgPC0gcHlfdXJsbGliX3JlcXVlc3QkdXJsb3BlbigiaHR0cHM6Ly9zdGF0cy5pZHJlLnVjbGEuZWR1L3N0YXQvZGF0YS90ZXN0LnR4dCIpCiNicyA8LSBweV9iczQkQmVhdXRpZnVsU291cChodG1sJHJlYWQoKSwgImh0bWw1bGliIikKI3ByaW50KGJzKQoKYGBgClByZXBhcmUgYW5kIHNldCB1cCB0aGUgZW52aXJvbm1lbnQgZm9yIHdlYiBzY3JhcGluZwpgYGB7cHl0aG9ufQojU2V0IHVwIHRoZSBwYWNrYWdlIGZvciB3ZWIgc2NyYXBpbmcKZnJvbSB1cmxsaWIucmVxdWVzdCBpbXBvcnQgdXJsb3Blbgpmcm9tIGJzNCBpbXBvcnQgQmVhdXRpZnVsU291cAojU2V0IHVwIHRoZSBwYWNrYWdlIGZvciBleGNlcHRpb24gaGFuZGxpbmcKZnJvbSB1cmxsaWIuZXJyb3IgaW1wb3J0IEhUVFBFcnJvcgpmcm9tIHVybGxpYi5lcnJvciBpbXBvcnQgVVJMRXJyb3IKCiNDcmVhdGluZyBhIGNsYXNzIFdlYlNjcmFwaW5nIHdpdGggZ2V0VXJsIG1ldGhvZApjbGFzcyBXZWJTY3JhcGluZzoKICBkZWYgX19pbml0X18oc2VsZiwgc29tZVVybCk6CiAgICBzZWxmLnNvbWVVcmwgPSBzb21lVXJsCiAgCiAgZGVmIGdldFVybChzZWxmKToKICAgIHRyeToKICAgICAgaHRtbCA9IHVybG9wZW4oc2VsZi5zb21lVXJsKQogICAgZXhjZXB0IEhUVFBFcnJvcjoKICAgICAgcHJpbnQoJ1RoZSB1cmwgaXMgbm90IGF2YWlsYWJsZScpCiAgICAgIHByaW50KEhUVFBFcnJvcikKICAgICAgcmV0dXJuIE5vbmUKICAgIHRyeToKICAgICAgYnMgPSBCZWF1dGlmdWxTb3VwKGh0bWwucmVhZCgpLCAnaHRtbDVsaWInKQogICAgICB0aGVEYXRhID0gYnMuYm9keS5nZXRfdGV4dCgpCiAgICBleGNlcHQgVVJMRXJyb3I6CiAgICAgIHByaW50KCJNYXliZSB0aGUgc2VydmVyIGlzIG5vdCBhdmFpbGFibGUgZm9yIG5vdyIpCiAgICAgIHByaW50KFVSTEVycm9yKQogICAgICByZXR1cm4gTm9uZQogICAgZXhjZXB0IEF0dHJpYnV0ZUVycm9yOgogICAgICBwcmludCgiTWF5YmUgdGhlIHRhZyBpcyBub3QgdGhlcmUiKQogICAgICBwcmludChBdHRyaWJ1dGVFcnJvcikKICAgICAgcmV0dXJuIE5vbmUKICAgIAogICAgcmV0dXJuIHRoZURhdGEKYGBgCk5vdywgd2UgYXJlIHJlYWR5IHRvIGxlYXJuIHNjYW4gYW5kIHJlYWQudGFibGVzIGZ1bmN0aW9uCgojIyBCLiAkc2NhbiQgZnVuY3Rpb24KU3VwcG9zZSB0aGF0IHdlIGhhdmUgYSBkYXRhIGFzIGJlbG93CmBgYHtweXRob259CiNDcmVhdGUgdGhlIHB5dGhvbiBvYmplY3QKcHlPYmplY3QgPSBXZWJTY3JhcGluZygnaHR0cHM6Ly9zdGF0cy5pZHJlLnVjbGEuZWR1L3N0YXQvZGF0YS9zY2FuLnR4dCcpCmBgYApgYGB7cHl0aG9ufQpwcmludCgiVGFnIHdhcyBub3QgdGhlcmUiKSBpZihweU9iamVjdC5nZXRVcmwoKSA9PSBOb25lKSBlbHNlIHByaW50KHB5T2JqZWN0LmdldFVybCgpKQpgYGAKYGBge3J9CiNXZSBjYW4gcmVhZCB0aGUgZGF0YSB1c2luZyBzY2FuKCkgYXMgZm9sbG93cwpzb21lX2RhdGEgPC0gc2NhbignaHR0cHM6Ly9zdGF0cy5pZHJlLnVjbGEuZWR1L3N0YXQvZGF0YS9zY2FuLnR4dCcsIHdoYXQ9bGlzdChhZ2U9MCwgbmFtZXM9IiIpKQpwcmludChzb21lX2RhdGEpCmBgYAojIyAkcmVhZC50YWJsZXMkIGZ1bmN0aW9uCkhlcmUsIHdlIGFyZSBkaXNjdXNzIGFib3V0IHZlcnkgcmVsaWFibGUgdG8gcmVhZCBkYXRhIGludG8gUgpgYGB7cHl0aG9ufQpzdFB5T2JqZWN0ID0gV2ViU2NyYXBpbmcoJ2h0dHBzOi8vc3RhdHMuaWRyZS51Y2xhLmVkdS9zdGF0L2RhdGEvdGVzdC50eHQnKQpwcmludCgiQXR0cmlidXRlIHdhcyBub3QgZm91bmQgbWF5YmUiKSBpZihzdFB5T2JqZWN0LmdldFVybCgpID09IE5vbmUpIGVsc2UgcHJpbnQoc3RQeU9iamVjdC5nZXRVcmwoKSkKYGBgCgpgYGB7cn0KI0luIHRoZSBkYXRhIGZyYW1lIGZvcm0KKHN0X2V4YW1wbGUgPC0gcmVhZC50YWJsZSgiaHR0cHM6Ly9zdGF0cy5pZHJlLnVjbGEuZWR1L3N0YXQvZGF0YS90ZXN0LnR4dCIsIGhlYWRlciA9IFRSVUUpKQooYXMubGlzdChzdF9leGFtcGxlKSkKYGBgCiMjIyBFeGNlcHRpb24gSGFuZGxpbmcKU3VwcG9zZSB0aGF0IHdlIGFyZSBnaXZlbiBhIHRhYmxlIHdoZXJlIHRoZSBlbGVtZW50IG9mIGl0cyB0aGVyZSBleGlzdCBhbiBlbXB0eSB2YWx1ZS4gRm9yIGV4YW1wbGUuCmBgYHtweXRob259Cm5kUHlPYmplY3QgPSBXZWJTY3JhcGluZygiaHR0cHM6Ly9zdGF0cy5pZHJlLnVjbGEuZWR1L3N0YXQvZGF0YS90ZXN0X21pc3NpbmdfY29tbWEudHh0IikKcHJpbnQoIkF0dHJpYnV0ZSBtYXliZSBub3QgZm91bmQiKSBpZihuZFB5T2JqZWN0LmdldFVybCA9PSBOb25lKSBlbHNlIHByaW50KG5kUHlPYmplY3QuZ2V0VXJsKCkpCmBgYApgYGB7cn0KKG5kX2V4YW1wbGUgPC0gcmVhZC50YWJsZSgiaHR0cHM6Ly9zdGF0cy5pZHJlLnVjbGEuZWR1L3N0YXQvZGF0YS90ZXN0X21pc3NpbmdfY29tbWEudHh0IiwgaGVhZGVyPVRSVUUsIHNlcD0iLCIpKQpwcmludChhcy5saXN0KG5kX2V4YW1wbGUpKQpgYGAKCg==</div>
 
 
 
