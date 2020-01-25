@@ -1,0 +1,53 @@
+---
+title: "Probability Distribution"
+output: html_notebook
+
+---
+source: R-intro from CRAN
+
+## R as a set of statistical tables
+```{r}
+#Reading the csv data
+distribution_name <- read.csv("probability_distribution.csv", header=TRUE)
+print(distribution_name)
+```
+## Examining the distribution of set of data
+Given a (univariate) set of data we can examine its distribution in a large number of ways. The
+simplest is to examine the numbers. Two slightly different summaries are given by summary and
+fivenum and a display of the numbers by stem (a “stem and leaf” plot).
+```{r}
+print(faithful)
+summary(eruptions)
+fivenum(eruptions)
+```
+```{r}
+stem(eruptions)
+```
+```{r}
+#Plotting the histogram
+hist(eruptions)
+#Make the bins smaller, make a plot density
+hist(eruptions, seq(1.6, 5.2, 0.2), prob=TRUE, col="whitesmoke")
+lines(density(eruptions, bw=0.1, col="blue"))
+rug(eruptions, col="navy")
+```
+```{r}
+#Plotting empirical cumulative distribution function
+plot(ecdf(eruptions), do.points=FALSE, verticals=TRUE, col="blue")
+```
+This distribution is obviously far from any standard distribution. How about the right-hand
+mode, say eruptions of longer than 3 minutes? Let us fit a normal distribution and overlay the
+fitted CDF.
+```{r}
+long <- eruptions[eruptions > 3]
+plot(ecdf(long), do.points=FALSE, verticals=TRUE)
+x <- seq(3, 5.4, 0.01)
+lines(x, pnorm(x, mean=mean(long), sd=sqrt(var(long))), lty=3)
+```
+Quantile-quantile (Q-Q) plots can help us examine this more carefully.
+```{r}
+par(pty="s")
+# arrange for a square figure region
+qqnorm(long); qqline(long)
+```
+
