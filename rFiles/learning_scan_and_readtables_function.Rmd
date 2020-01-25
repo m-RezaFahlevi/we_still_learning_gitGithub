@@ -1,0 +1,67 @@
+---
+title: "Understanding read.tables Function in R"
+author: "Muhammad Reza Fahlevi"
+output:
+  html_notebook: default
+---
+In this notebook, we will learn how to use read.tables function in order to read some data. In this case, I'll scrape it some data external using python code and read the data using R.
+
+## A. $scan$ Function
+Suppose that the data that we want to read is locate in https://stats.idre.ucla.edu/stat/data/scan.txt
+
+```{r}
+#Use reticulate package
+library("reticulate")
+use_python("/usr/bin/python", required = T)
+#Bringing python3 to R
+
+#py_urllib_request <- import("urllib.request")
+#py_bs4 <- import("bs4")
+#html <- py_urllib_request$urlopen("https://stats.idre.ucla.edu/stat/data/test.txt")
+#bs <- py_bs4$BeautifulSoup(html$read(), "html5lib")
+#print(bs)
+
+```
+
+
+```{python}
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+from urllib.error import HTTPError
+from urllib.error import URLError
+
+#Creating a class WebScraping with getUrl method
+class WebScraping:
+  def __init__(self, someUrl):
+    self.someUrl = someUrl
+  
+  def getUrl(self):
+    try:
+      html = urlopen(self.someUrl)
+    except HTTPError:
+      print('The url is not available')
+      print(HTTPError)
+      return None
+    try:
+      bs = BeautifulSoup(html.read(), 'html5lib')
+      theData = bs.body.get_text()
+    except URLError:
+      print("Maybe the server is not available for now")
+      print(URLError)
+      return None
+    except AttributeError:
+      print("Maybe the tag is not there")
+      print(AttributeError)
+      return None
+    
+    return theData
+```
+Print the results of scraping from the url
+```{python}
+#Create the python object
+pyObject = WebScraping('https://stats.idre.ucla.edu/stat/data/test.txt')
+```
+```{python}
+print(pyObject.getUrl())
+```
+
