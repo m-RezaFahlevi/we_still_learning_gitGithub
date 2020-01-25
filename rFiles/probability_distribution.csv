@@ -1,0 +1,20 @@
+Distribution, R_name, additional_arguments
+beta, beta, "shape1, shape2, ncp"
+binomial, binom, "size, prob"
+Cauchy, cauchy, "location, scale"
+chi-squared, chisq, "df, ncp"
+exponential, exp, rate
+F, f, "df1, df2, ncp"
+gamma, gamma, "shape, scale"
+geometric, geom, prob
+hypergeometric, hyper, "m, n, k"
+log-normal, lnorm, "meanlog, sdlog"
+logistic, logis, "location, scale"
+negative binomial, nbinom, "size, prob"
+normal, norm, "mean, sd"
+Poisson, pois, lambda
+signed rank, signrank, n
+Student's t, t, "df, ncp"
+uniform, unif, "min, max"
+Weibull, weibull, "shape, scale"
+Wilcoxon, wilcox, "m, n"
