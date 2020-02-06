@@ -1,0 +1,101 @@
+---
+title: "Solution Notebook for Exercise in Section 1.4."
+author: "Muhammad Reza Fahlevi"
+output: html_notebook
+---
+This notebook discuss about the solution for exercise appear in book $Walpole, Myers, Myers, Ye. \textit{Probability & Statistics for Engineers & Scientist Eigth Edition. } Pearson.$
+
+### Some Important Equation
+#### Sample Mean
+$$\bar x = \sum_{i = 0}^{n} \frac{x_i}{n} = \frac{x_1 + x_2 + ... + x_n}{n}$$
+In this case, $x\in{N}$.
+
+#### Median Value
+$$
+\widetilde x = \begin{cases} x_{ \frac{n+1}{2}} && \text{if n is odd} \\ \frac{1}{2} (x_{ \frac{x}{2}} + x_{ \frac{n}{2} + 1}) && \text{if n is even} \end{cases}
+$$
+
+#### Sample Variance
+$$
+s^2 = \sum_{i = 0}^{n} \frac{(x_i - \bar x)^2}{n-1}
+$$
+
+#### Standard Deviation
+$$
+\begin{align}
+s & = \sqrt{s^2}\\
+s & = \sqrt{\sum_{i = 1}^{n} \frac{(x_i - \bar x)^2}{n-1}}
+\end{align}
+$$
+
+### Exercise 1.1
+The following measurements were recorded for the drying time, in hours, of a certain brand of latex paint.
+$$
+\begin{align}
+3.4 && 2.5 && 4.8 && 2.9 && 3.6 \\
+2.8 && 3.3 && 5.6 && 3.7 && 2.8 \\
+4.8 && 4.0 && 5.2 && 3.0 && 4.8
+\end{align}
+$$
+Assume that the measurements are a simple random sample.
+
+(a). What is the sample size for the above sample?
+```{r}
+#Assing the data in vector form
+measurements <- c(3.4, 2.5, 4.8, 2.9, 3.6, 2.8, 3.3, 5.6, 3.7, 2.8, 4.8, 4.0, 5.2, 3.0, 4.8)
+print(sum(measurements))
+print(matrix(measurements, nrow=3, ncol=5, byrow=TRUE))
+print(length(measurements)) #sample size for the above sample
+```
+
+(b). Calculate the sample mean for this data.
+```{r}
+print(mean(measurements))
+```
+
+(c). Calculate the sample meadian.
+```{r}
+sorted_measurements <- sort(measurements)
+print(sorted_measurements)
+print(sorted_measurements[8])
+print(median(measurements))
+print(sorted_measurements[8] == median(measurements))
+
+print(var(sorted_measurements))
+print(sqrt(var(sorted_measurements)))
+```
+
+(d). Plot the data by way of a dot plot.
+```{r}
+print(table(measurements))
+print(plot(table(measurements)))
+```
+
+(e). Compute the 20% trimmed mean for the above data set.
+
+### Exercise 1.3
+```{r}
+#Insert the data
+no_aging <- c(227, 222, 218, 217, 225, 218, 216, 229, 228, 221)
+aging <- c(219, 214, 215, 211, 209, 218, 203, 204, 201, 205)
+tensile_strength <- data.frame(No_Aging = no_aging, Aging = aging)
+
+print(tensile_strength)
+print(summary(tensile_strength))
+
+print(var(aging))
+print(sqrt(var(aging)))
+
+print(var(no_aging))
+print(sqrt(var(no_aging)))
+```
+(a). Do a dow plot of the data
+```{r}
+print(plot(table(no_aging)))
+print(plot(table(aging)))
+```
+(c). Calculate the sample mean tensile strength of the two samples
+```{r}
+print(mean(no_aging))
+print(mean(aging))
+```
