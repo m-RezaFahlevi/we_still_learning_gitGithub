@@ -1,0 +1,120 @@
+---
+title: "Exercise in the end of Chapter-1"
+output: html_notebook
+---
+
+This notebook discuss about the solution for exercise appear in book $Walpole, Myers, Myers, Ye. \textit{Probability & Statistics for Engineers & Scientist Eigth Edition. } Pearson.$
+
+### Some Important Equation
+#### Sample Mean
+$$\bar x = \sum_{i = 0}^{n} \frac{x_i}{n} = \frac{x_1 + x_2 + ... + x_n}{n}$$
+In this case, $x\in{N}$.
+
+#### Median Value
+$$
+\widetilde x = \begin{cases} x_{ \frac{n+1}{2}} && \text{if n is odd} \\ \frac{1}{2} (x_{ \frac{x}{2}} + x_{ \frac{n}{2} + 1}) && \text{if n is even} \end{cases}
+$$
+
+#### Sample Variance
+$$
+s^2 = \sum_{i = 0}^{n} \frac{(x_i - \bar x)^2}{n-1}
+$$
+
+#### Standard Deviation
+$$
+\begin{align}
+s & = \sqrt{s^2}\\
+s & = \sqrt{\sum_{i = 1}^{n} \frac{(x_i - \bar x)^2}{n-1}}
+\end{align}
+$$
+
+## Exercise 1.13
+```{r}
+#Assign the datum
+the_data <- c(123, 116, 122, 110, 175, 126, 125, 111, 118, 117)
+print(the_data)
+print(length(the_data))   #print the size of data
+print(mean(the_data))     #print the mean of data
+print(median(the_data))   #print the median of data
+```
+
+## Exercise 1.14
+```{r}
+the_st_data <- c(572, 572, 573, 568, 569, 575, 565, 570)
+print(the_st_data)    #display the data
+print(length(the_st_data))  #print the size of data
+print(mean(the_st_data))    #print the mean of data
+print(median(the_st_data))  #print the median of data
+print(var(the_st_data))     #print the variance of data
+print(sqrt(var(the_st_data)))     #print the standard deviation
+```
+
+## Exercise 1.17
+```{r}
+Smokers <- Smokers[1:15]
+print(Smokers)
+print(length(Smokers) == length(Nonsmokers))
+Smokers <- c(69.3, 56.0, 22.1, 47.6, 53.2, 48.1, 52.7, 34.4, 60.2, 43.8, 23.2, 13.8)
+Nonsmokers <- c(28.6, 25.1, 26.4, 34.9, 29.8, 28.4, 38.5, 30.2, 30.6, 31.8, 41.6, 21.1, 36.0, 37.9, 13.9)
+print(Smokers)    #print the Smokers
+print(Nonsmokers) #print the Nonsmokers
+print(length(Smokers)) #print the size of Smokers
+print(length(Nonsmokers)) #print the size of Nonsmokers
+
+smokers_nonsmokers <- cbind(summary(Smokers), summary(Nonsmokers))
+smokers_nonsmokers <- data.frame(smokers = smokers_nonsmokers[,1], nonsmokers = smokers_nonsmokers[,2])
+print(smokers_nonsmokers)   #The summary display in data frame
+```
+
+```{r}
+for (i in 1:length(Smokers)) {
+  print(Smokers[i] > Nonsmokers[i])
+}
+```
+
+##### Display the data
+```{r}
+cat("Smokers : ", print(Smokers))
+print("")
+cat("Size of sample :", length(Smokers))
+print("")
+print(summary(Smokers))
+print(fivenum(Smokers))
+stem(Smokers)
+
+#Visualisation the data using histogram
+hist(Smokers)
+hist(Smokers, seq(13.80, 69.4, 0.2), prob=TRUE)
+line(density(Smokers, bw=0.1))
+rug(Smokers)
+boxplot(Smokers, Nonsmokers, col = "blue")
+```
+#### Conclusion
+The smokers take more time to fall asleep then those who Nonsmokers
+
+## Exercueses 1.18
+```{r}
+print(final_exam)
+summary(final_exam)
+print(var(final_exam)) #print the variance of the sample
+print(sqrt(var(final_exam))) #print the standard deviation of sample
+fivenum(final_exam)
+stem(final_exam, scale=1, width = 80)
+boxplot(final_exam, col="blue")
+#To make sure that the stem-leaf is correct
+#for (i in 1:length(final_exam)) {
+#  if(final_exam[i] > 20 && final_exam[i] < 30) print(final_exam[i])
+#}
+```
+### Display the data
+```{r}
+library(lattice)
+hist(final_exam, 20, col="blue")
+hist(final_exam, seq(10.0, 99.0, 0.2), prob=TRUE, col="blue")
+lines(density(final_exam, bw=0.1))
+rug(final_exam)
+densityplot(final_exam)
+qqmath(final_exam)
+boxplot(final_exam)
+```
+
