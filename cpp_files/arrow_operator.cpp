@@ -22,5 +22,5 @@ int main(void) {
     pointer_cpp_class -> truth_value = true;
     
     if (pointer_cpp_class -> truth_value)
-        cout << "The data : " << pointer_cpp_class << endl;
+        cout << "The data : " << pointer_cpp_class->the_data << endl;
 }
