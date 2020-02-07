@@ -2,6 +2,7 @@
 using namespace std;
 
 class cpp_class {
+public:
     int the_data;
     bool truth_value;
     
