@@ -6,7 +6,7 @@ public:
     int the_data;
     bool truth_value;
     
-    cpp_class {
+    cpp_class() {
         the_data = 0;
         truth_value = false;
     }
