@@ -5,6 +5,8 @@ class Node:
         self.next = None
         self.previous = None
 
+    #We still have no idea what is this code
+    #use for :)
     def __str__(self):
         return str(data)
     
