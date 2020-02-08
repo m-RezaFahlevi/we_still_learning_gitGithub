@@ -5,6 +5,7 @@ class Node {
 public:
 	int the_data;
 	Node *next_node;
+	Node *previous_node;
 };
 
 void insert_the_data(Node *st_node) {
@@ -17,7 +18,7 @@ void insert_the_data(Node *st_node) {
 	}
 }
 
-void display_the_data(Node *st_node) {
+void display_the_data_forwards(Node *st_node) {
 	Node *temp = NULL;
 	temp = new Node();
 	temp = st_node;
@@ -25,6 +26,19 @@ void display_the_data(Node *st_node) {
 	while(temp != NULL) {
 		cout << temp -> the_data << " --> ";
 		temp = temp -> next_node;
+	}
+
+	cout << "NULL\n";
+}
+
+void display_the_data_backwards(Node *thrd_node) {
+	Node *temp = NULL;
+	temp = new Node();
+	temp = thrd_node;
+
+	while(temp != NULL) {
+		cout << temp -> the_data << " --> ";
+		temp = temp -> previous_node;
 	}
 
 	cout << "NULL\n";
@@ -54,11 +68,15 @@ int main(void) {
 	third = new Node();
 
 	//assign the value;
+	head -> previous_node = NULL;
 	head -> next_node = second;
+	second -> previous_node = head;
 	second -> next_node = third;
+	third -> previous_node = second;
 	third -> next_node = NULL;
 
 	insert_the_data(head);
-	display_the_data(head);
+	display_the_data_forwards(head);
+	display_the_data_backwards(third);
 	display_the_address(head);
 }
