@@ -79,4 +79,19 @@ int main(void) {
 	display_the_data_forwards(head);
 	display_the_data_backwards(third);
 	display_the_address(head);
+
+	//Create a new node
+	Node *new_node = NULL;
+	new_node = new Node(); // allocate the new_node;
+
+	new_node -> the_data = 7;
+	new_node -> previous_node = second;
+	new_node -> next_node = third;
+
+	second -> next_node = new_node;
+	third -> previous_node = new_node;
+
+	display_the_data_forwards(head);
+	display_the_data_backwards(third);
+
 }
