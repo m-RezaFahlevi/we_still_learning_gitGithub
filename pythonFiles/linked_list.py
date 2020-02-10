@@ -9,7 +9,7 @@ class Node:
     #use for :)
     def __str__(self):
         return str(data)
-    
+
     #method for print the list
     def __print_list_forwards__(self):
         temp = self
@@ -24,13 +24,50 @@ class Node:
             print(f'{temp.data} --> ', end="")
             temp = temp.previous
         print(None)
-    
+
     def __display_the_address__(self):
         temp = self
         while(temp):
             print(f'{hex(id(temp))} --> ', end="")
             temp = temp.next
         print(None)
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.tail = None
+
+    def __append__(self, data):
+        #Encapsulate the data in Node
+        nodes = Node(data)
+
+        if self.tail == None:
+            self.tail = nodes
+        else:
+            temp = self.tail
+            while temp.next:
+                temp = temp.next
+            temp.next = nodes
+
+words = SinglyLinkedList()
+words.__append__("bidoof")
+words.__append__("bibarel")
+words.__append__("peanut_butter")
+
+#print the data
+temps = words.tail
+while temps:
+    print(f"{temps.data} --> ", end="")
+    temps = temps.next
+print(None)
+
+#print the address
+temps = words.tail
+while temps:
+    print(f"{hex(id(temps))} -->", end="")
+    temps = temps.next
+print(None)
+
+print("\nLinked list only using Node class\n")
 
 #Allocate the data for each node
 st_node = Node("st_data")
