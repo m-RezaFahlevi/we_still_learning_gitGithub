@@ -11,18 +11,25 @@ class Node:
         return str(data)
     
     #method for print the list
-    def __printlistforwards__(self):
+    def __print_list_forwards__(self):
         temp = self
         while(temp):
             print(f'{temp.data} --> ', end="")
             temp = temp.next
         print(None)
 
-    def __printlistbackwards__(self):
+    def __print_list_backwards__(self):
         temp = self
         while(temp):
             print(f'{temp.data} --> ', end="")
             temp = temp.previous
+        print(None)
+    
+    def __display_the_address__(self):
+        temp = self
+        while(temp):
+            print(f'{hex(id(temp))} --> ', end="")
+            temp = temp.next
         print(None)
 
 #Allocate the data for each node
@@ -37,5 +44,20 @@ nd_node.previous = st_node
 thrd_node.previous = nd_node
 
 #use the method
-st_node.__printlistforwards__()
-thrd_node.__printlistbackwards__()
+st_node.__print_list_forwards__()
+thrd_node.__print_list_backwards__()
+st_node.__display_the_address__()
+
+#Insert new node between the linked_node
+new_node = Node("new_data")
+
+nd_node.next = new_node
+new_node.previous = nd_node
+new_node.next = thrd_node
+
+print("\nAfter insert the new node between linked_node\n")
+
+st_node.__print_list_forwards__()
+thrd_node.__print_list_backwards__()
+st_node.__display_the_address__()
+#print(hex(id(st_node)))  // This is for display the memory address of variable
