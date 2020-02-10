@@ -1,49 +1,51 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
 library(shiny)
 
-# Define UI for application that draws a histogram
 ui <- fluidPage(
-
-    # Application title
-    titlePanel("Old Faithful Geyser Data"),
-
-    # Sidebar with a slider input for number of bins 
+    titlePanel(h1(size=12,"censusVis")),
+    
     sidebarLayout(
         sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
+            p("Create demographic maps with information form the 2010 US Census."),
+            
+            selectInput(
+                "select", 
+                strong("Choose variable to display"),
+                choices = list(
+                    "st_variable" = 1, 
+                    "second_variable" = 2, 
+                    "third_variable" = 3, 
+                    "fourth_variable" = 4, 
+                    "fifth_variable" = 5
+                    )
+            ),
+            
+            sliderInput(
+                "range_of_interest", 
+                strong("Range of interest:"), 
+                min = 0, max = 100, value = c(5,95)
+            ),
+            
+            selectInput(
+                "variable_choosing",
+                strong("Choose variable to display"),
+                choices = list(
+                    "Percent White" = 1,
+                    "Percent Black" = 2,
+                    "Percent Hispanic" = 3,
+                    "Percent Asian" = 4
+                    )
+            )
         ),
-
-        # Show a plot of the generated distribution
+        
         mainPanel(
-           plotOutput("distPlot")
+            h1("Shiny exercise")
         )
     )
 )
 
-# Define server logic required to draw a histogram
 server <- function(input, output) {
-
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    })
+    #code here
 }
 
-# Run the application 
-shinyApp(ui = ui, server = server)
+#Running the app
+shinyApp(ui=ui, server = server)
