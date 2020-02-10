@@ -33,10 +33,18 @@ class Node:
         print(None)
 
 class SinglyLinkedList:
-    def __init__(self):
-        self.tail = None
+    #We still have no idea what is
+    #self.head and self.tail used for :)
 
-    def __append__(self, data):
+    #Take note of the convention being used. The point at which we append 
+    #new nodes is through self.head. 
+    #The self.tail variable points to the first node in the list.
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.size = 0
+
+    def __appends__(self, data):
         #Encapsulate the data in Node
         nodes = Node(data)
 
@@ -47,6 +55,24 @@ class SinglyLinkedList:
             while temp.next:
                 temp = temp.next
             temp.next = nodes
+
+    def __append__(self,data):
+        node = Node(data)
+        self.size += 1      #Reduce the time-complexity
+        if self.head:
+            self.head.next = node
+            self.head = node
+        else:
+            self.tail = node
+            self.head = node
+
+    def __size__(self):
+        temp = 0
+        current = self.tail
+        while current:
+            temp += 1
+            current = current.next
+        return temp
 
 words = SinglyLinkedList()
 words.__append__("bidoof")
@@ -59,6 +85,8 @@ while temps:
     print(f"{temps.data} --> ", end="")
     temps = temps.next
 print(None)
+
+print(words.size)
 
 #print the address
 temps = words.tail
