@@ -38,13 +38,27 @@ ui <- fluidPage(
         ),
         
         mainPanel(
-            h1("Shiny exercise")
+            h1("Shiny exercise"),
+            textOutput("selected_var"),
+            textOutput("nd_selected_var"),
+            textOutput("the_slider")
         )
     )
 )
 
 server <- function(input, output) {
     #code here
+    output$selected_var <- renderText({
+        paste("You have selected", input$select)
+    })
+    
+    output$nd_selected_var <- renderText({
+        paste("You have selected", input$variable_choosing)
+    })
+    
+    output$the_slider <- renderText({
+        paste("you have choosen a range from ",input$range_of_interest[1], " to ", input$range_of_interest[2])
+    })
 }
 
 #Running the app
