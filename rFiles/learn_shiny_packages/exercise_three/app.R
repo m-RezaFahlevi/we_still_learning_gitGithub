@@ -47,6 +47,18 @@ ui <- fluidPage(
 )
 
 server <- function(input, output) {
+    #import the library
+    library(maps)
+    library(mapproj)
+    
+    source("helpers.R")
+    counties <- readRDS("counties.rds")
+    
+    #output for counties.rds
+    output$map <- renderPlot({
+        
+    })
+    
     #code here
     output$selected_var <- renderText({
         paste("You have selected", input$select)
