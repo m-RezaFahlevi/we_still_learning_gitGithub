@@ -11,6 +11,7 @@ class Node:
         return str(data)
 
     #method for print the list
+    #if we are only using Node class
     def __print_list_forwards__(self):
         temp = self
         while(temp):
@@ -44,6 +45,7 @@ class SinglyLinkedList:
         self.tail = None
         self.size = 0
 
+    #Time-complexity is O(n)
     def __appends__(self, data):
         #Encapsulate the data in Node
         nodes = Node(data)
@@ -57,15 +59,18 @@ class SinglyLinkedList:
             temp.next = nodes
 
     def __append__(self,data):
+        #Encapsulate the data in Node
         node = Node(data)
         self.size += 1      #Reduce the time-complexity
         if self.head:
             self.head.next = node
             self.head = node
         else:
+            #This code will execute only in the first __append__ is used.
             self.tail = node
             self.head = node
 
+    #Time-complexity is O(n)
     def __size__(self):
         temp = 0
         current = self.tail
@@ -74,29 +79,45 @@ class SinglyLinkedList:
             current = current.next
         return temp
 
+"""
+    Linked list by using SinglyLinkedList class
+    and using encapsulation-technique.
+"""
+
 words = SinglyLinkedList()
-words.__append__("bidoof")
-words.__append__("bibarel")
-words.__append__("peanut_butter")
+
+words.__append__(str(input("Node : ")))
+words.__append__(str(input("Node : ")))
+words.__append__(str(input("Node : ")))
+
+print("\nYour list : ")
 
 #print the data
 temps = words.tail
 while temps:
     print(f"{temps.data} --> ", end="")
     temps = temps.next
-print(None)
+print(None, end="\n")
 
-print(words.size)
+print(f'\nthe size of linked_list is : {words.size}')
 
 #print the address
+print("The address of the list:")
 temps = words.tail
 while temps:
-    print(f"{hex(id(temps))} -->", end="")
+    print(f"{hex(id(temps))} --> ", end="")
     temps = temps.next
 print(None)
 
 print("\nLinked list only using Node class\n")
 
+
+
+"""
+    Linked list only using the node class.
+    I think this method is not too good. Because we need
+    to allocate the the node to its memory.
+"""
 #Allocate the data for each node
 st_node = Node("st_data")
 nd_node = Node("nd_data")
