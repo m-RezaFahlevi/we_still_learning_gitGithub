@@ -10,29 +10,6 @@ class Node:
     def __str__(self):
         return str(data)
 
-    #method for print the list
-    #if we are only using Node class
-    def __print_list_forwards__(self):
-        temp = self
-        while(temp):
-            print(f'{temp.data} --> ', end="")
-            temp = temp.next
-        print(None)
-
-    def __print_list_backwards__(self):
-        temp = self
-        while(temp):
-            print(f'{temp.data} --> ', end="")
-            temp = temp.previous
-        print(None)
-
-    def __display_the_address__(self):
-        temp = self
-        while(temp):
-            print(f'{hex(id(temp))} --> ', end="")
-            temp = temp.next
-        print(None)
-
 class SinglyLinkedList:
     #We still have no idea what is
     #self.head and self.tail used for :)
@@ -109,41 +86,4 @@ while temps:
     temps = temps.next
 print(None)
 
-print("\nLinked list only using Node class\n")
-
-
-
-"""
-    Linked list only using the node class.
-    I think this method is not too good. Because we need
-    to allocate the the node to its memory.
-"""
-#Allocate the data for each node
-st_node = Node("st_data")
-nd_node = Node("nd_data")
-thrd_node = Node("thrd_data")
-
-#Linked the node
-st_node.next = nd_node
-nd_node.next = thrd_node
-nd_node.previous = st_node
-thrd_node.previous = nd_node
-
-#use the method
-st_node.__print_list_forwards__()
-thrd_node.__print_list_backwards__()
-st_node.__display_the_address__()
-
-#Insert new node between the linked_node
-new_node = Node("new_data")
-
-nd_node.next = new_node
-new_node.previous = nd_node
-new_node.next = thrd_node
-
-print("\nAfter insert the new node between linked_node\n")
-
-st_node.__print_list_forwards__()
-thrd_node.__print_list_backwards__()
-st_node.__display_the_address__()
 #print(hex(id(st_node)))  // This is for display the memory address of variable
