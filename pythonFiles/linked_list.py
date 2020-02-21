@@ -61,10 +61,14 @@ class SinglyLinkedList:
         prev = temp
         temp = temp.next
         
+    #time complexity O(1)
+    def __clear__(self):
+        self.tail = None
+        self.head = None
+    #Time complexity is O(n)
     def __search__(self, data):
         for node in self.iter():
-            if data == node:
-                return True
+            if data == node: return True
         return False
         
     #Improving list traversal
@@ -75,6 +79,7 @@ class SinglyLinkedList:
             temp = temp.next
             yield val
 
+
 """
     Linked list by using SinglyLinkedList class
     and using encapsulation-technique.
@@ -82,14 +87,18 @@ class SinglyLinkedList:
 
 words = SinglyLinkedList()
 
-words.__append__("Bidoof")
-words.__append__("Bibarel")
-words.__append__("Peanut")
+words.__append__(str(input("Node : ")))
+words.__append__(str(input("Node : ")))
+words.__append__(str(input("Node : ")))
 
 words.__delete__("Bibarel")
-words.__search__("Peanut")
+print(words.__search__(str(input("search_node : "))))
+
+words.__clear__()
 
 print("\nYour list : ")
 #Access the data
 for words in words.iter():
     print(words)
+
+print(words.__search__(str(input("Node : "))))
