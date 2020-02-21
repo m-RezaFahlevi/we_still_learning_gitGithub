@@ -51,15 +51,16 @@ class SinglyLinkedList:
         temp = self.tail
         prev = self.tail
         while temp:
-            if(temp.data == data and temp == self.tail):
-                self.tail = temp.next
+            if(temp.data == data):
+                if(temp == self.tail):
+                    self.tail = temp.next
             else:
                 prev.next = temp.next
             self.size -= 1
             return
         prev = temp
         temp = temp.next
-
+"""
     #Time-complexity is O(n)
     def __size__(self):
         temp = 0
@@ -68,7 +69,7 @@ class SinglyLinkedList:
             temp += 1
             current = current.next
         return temp
-
+"""
     #Improving list traversal
     def iter(self):
         temp = self.tail
@@ -84,35 +85,13 @@ class SinglyLinkedList:
 
 words = SinglyLinkedList()
 
-words.__append__(str(input("Node : ")))
-words.__append__(str(input("Node : ")))
-words.__append__(str(input("Node : ")))
+words.__append__("Bidoof")
+words.__append__("Bibarel")
+words.__append__("Peanut")
+
+words.__delete__("Bibarel")
 
 print("\nYour list : ")
-
 #Access the data
 for words in words.iter():
     print(words)
-
-words.__delete__(str(input()))
-
-#print the data
-"""
-suddenly this code below  become error :)
-
-temps = words.tail
-while temps:
-    print(f"{temps.data} --> ", end="")
-    temps = temps.next
-print(None, end="\n")
-print(f'\nthe size of linked_list is : {words.size}')
-
-#print the address
-print("The address of the list:")
-temps = words.tail
-while temps:
-    print(f"{hex(id(temps))} --> ", end="")
-    temps = temps.next
-print(None)
-"""
-#print(hex(id(st_node)))  // This is for display the memory address of variable
