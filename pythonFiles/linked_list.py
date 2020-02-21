@@ -56,6 +56,14 @@ class SinglyLinkedList:
             current = current.next
         return temp
 
+    #Improving list traversal
+    def iter(self):
+        temp = self.tail
+        while temp:
+            val = temp.data
+            temp = temp.next
+            yield val
+
 """
     Linked list by using SinglyLinkedList class
     and using encapsulation-technique.
@@ -69,13 +77,19 @@ words.__append__(str(input("Node : ")))
 
 print("\nYour list : ")
 
+#Access the data
+for words in words.iter():
+    print(words)
+
 #print the data
+"""
+suddenly this code below  become error :)
+
 temps = words.tail
 while temps:
     print(f"{temps.data} --> ", end="")
     temps = temps.next
 print(None, end="\n")
-
 print(f'\nthe size of linked_list is : {words.size}')
 
 #print the address
@@ -85,5 +99,5 @@ while temps:
     print(f"{hex(id(temps))} --> ", end="")
     temps = temps.next
 print(None)
-
+"""
 #print(hex(id(st_node)))  // This is for display the memory address of variable
