@@ -26,7 +26,7 @@ class SinglyLinkedList:
     def __appends__(self, data):
         #Encapsulate the data in Node
         nodes = Node(data)
-
+        
         if self.tail == None:
             self.tail = nodes
         else:
@@ -34,7 +34,7 @@ class SinglyLinkedList:
             while temp.next:
                 temp = temp.next
             temp.next = nodes
-
+            
     def __append__(self,data):
         #Encapsulate the data in Node
         node = Node(data)
@@ -46,7 +46,7 @@ class SinglyLinkedList:
             #This code will execute only in the first __append__ is used.
             self.tail = node
             self.head = node
-
+            
     def __delete__(self, data):
         temp = self.tail
         prev = self.tail
@@ -60,16 +60,13 @@ class SinglyLinkedList:
             return
         prev = temp
         temp = temp.next
-"""
-    #Time-complexity is O(n)
-    def __size__(self):
-        temp = 0
-        current = self.tail
-        while current:
-            temp += 1
-            current = current.next
-        return temp
-"""
+        
+    def __search__(self, data):
+        for node in self.iter():
+            if data == node:
+                return True
+        return False
+        
     #Improving list traversal
     def iter(self):
         temp = self.tail
@@ -90,6 +87,7 @@ words.__append__("Bibarel")
 words.__append__("Peanut")
 
 words.__delete__("Bibarel")
+words.__search__("Peanut")
 
 print("\nYour list : ")
 #Access the data
