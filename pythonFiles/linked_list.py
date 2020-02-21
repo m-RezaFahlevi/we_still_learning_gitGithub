@@ -47,6 +47,19 @@ class SinglyLinkedList:
             self.tail = node
             self.head = node
 
+    def __delete__(self, data):
+        temp = self.tail
+        prev = self.tail
+        while temp:
+            if(temp.data == data and temp == self.tail):
+                self.tail = temp.next
+            else:
+                prev.next = temp.next
+            self.size -= 1
+            return
+        prev = temp
+        temp = temp.next
+
     #Time-complexity is O(n)
     def __size__(self):
         temp = 0
@@ -80,6 +93,8 @@ print("\nYour list : ")
 #Access the data
 for words in words.iter():
     print(words)
+
+words.__delete__(str(input()))
 
 #print the data
 """
