@@ -1,3 +1,5 @@
+#Excercise 2.5
+
 dice = [1, 2, 3, 4, 5, 6]
 coin = ['H', 'T']
 st_S = []
@@ -23,6 +25,8 @@ print(f'Length of S : {len(S)}')
 S.sort(key=lambda s: s[0])
 
 print(S, end="\n\n")
+
+#Excersice 2.9
 
 #Event A
 print("List the elements corresponding to the event that a number less than 3 occurs on the die: ")
