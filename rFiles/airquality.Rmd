@@ -1,0 +1,73 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+## Data Descriptive
+```{r}
+data("airquality")
+airquality = read.csv("airquality.csv", header = TRUE, sep = ",")
+str(airquality)
+summary(airquality)
+```
+
+```{r}
+head(airquality, n = 10)
+tail(airquality, n = 10)
+```
+## Data visualization
+```{r}
+plot(airquality$Ozone, col="blue", pch="+")
+plot(airquality$Ozone, airquality$Wind, col="dark blue", pch="+")
+plot(airquality,col="blue")
+```
+
+##Using arguments with plot function
+```{r}
+plot(airquality$Ozone, type = "b", col="blue")
+plot(airquality$Wind, type = "h", col="dark blue")
+plot(
+    airquality$Ozone, col = "dark green",
+    xlab = "Ozone Concentration", ylab = "No of Instances", main = "Ozone Levels in NY-City"
+)
+
+#Using bar plot
+barplot(
+    airquality$Ozone, xlab = "Ozone Levels", main = "Ozone Concentration in Air",
+    col = "cyan", horiz = TRUE
+)
+
+barplot(
+    airquality$Ozone, xlab = "Ozone Levels", main = "Ozone Concentration in Air",
+    col = "cyan", horiz = FALSE
+)
+
+#Using histogram
+hist(
+    airquality$Solar.R, xlab = "Solar rad", main = "Solar Radiation in Air",
+    col = "red"
+)
+
+#Single boxplot
+boxplot(airquality$Solar.R, col="orange")
+
+#Multiple boxplot
+boxplot(airquality[,1:4], col = "blue")
+```
+
+```{r}
+#Grid of charts
+par(mfrow = c(3,3), mar=c(2,5,2,1), las=1, bty = "n")
+plot(airquality$Ozone)
+plot(airquality$Ozone, airquality$Wind)
+plot(airquality$Ozone, type = "c")
+plot(airquality$Ozone, type = "s")
+plot(airquality$Ozone, type = "h")
+barplot(
+    airquality$Ozone, main = "Ozone Concentration in Air", xlab = "Ozone Levels",
+    col = "green", horiz = TRUE
+)
+hist(airquality$Solar.R)
+boxplot(airquality$Ozone)
+boxplot(airquality[,1:4], main = "Multiple Box Plots")
+```
+
