@@ -1,0 +1,32 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+library(ggplot2)
+library(plotly)
+
+pulsar <- read.csv("pulsar_stars.csv")
+head(pulsar, n = 10)
+tail(pulsar, n = 10)
+summary(pulsar)
+lm(pulsar$Excess.kurtosis.of.the.integrated.profile~pulsar$Skewness.of.the.integrated.profile)
+```
+```{r}
+hist(pulsar$Mean.of.the.integrated.profile, col = "blue")
+plot(pulsar[,1:8], col = "blue", pch = ".")
+plot(pulsar[,1:4], col = "blue", pch = ".")
+plot(pulsar[,4:8], col = "blue", pch = ".")
+plot(pulsar$Standard.deviation.of.the.integrated.profile, pulsar$Skewness.of.the.DM.SNR.curve, col = "blue", pch = "+")
+```
+
+```{r}
+p <- plot_ly(x = ~pulsar$Excess.kurtosis.of.the.integrated.profile, y = ~pulsar$Skewness.of.the.integrated.profile, size = ~pulsar$Excess.kurtosis.of.the.integrated.profile)
+p
+```
+
