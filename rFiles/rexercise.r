@@ -24,5 +24,8 @@ boxplot(datum, col = "blue")
 ggplot(data = data, mapping = aes(x = c(1:30), y = data$Staff_Salaries)) + geom_point()
 
 #visualization using plotly
-p <- plot_ly(data = data, x = ~c(1:30), y = ~data$Staff_Salaries)
+p <- plot_ly(data = data, x = ~c(1:30), y = ~data$Staff_Salaries, color = ~data$Staff_Salaries, size = ~data$Staff_Salaries)
 p
+
+steam_leaf_plot <- plot_ly(y = ~data$Staff_Salaries, type = "box", boxpoints = "all")
+steam_leaf_plot
