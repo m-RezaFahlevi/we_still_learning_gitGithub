@@ -14,6 +14,10 @@ graph['F'] = ['B', 'D', 'C']
 graph['G'] = ['A', 'E']
 graph['H'] = ['C']
 
+print(deque(['A']))
+print(len(deque(['A'])))
+print(deque(['A']).popleft())
+
 def breadth_first_search(graph, root):
     visited_vertices = list()
 
@@ -24,7 +28,9 @@ def breadth_first_search(graph, root):
     while len(graph_queue) > 0:
         node = graph_queue.popleft()
         adj_nodes = graph[node]
+        "Line 32 is equivalence with A-B in set theory"
         remaining_elements = set(adj_nodes).difference(set(visited_vertices))
+        print(remaining_elements)
 
         if len(remaining_elements) > 0:
             for elements in sorted(remaining_elements):
