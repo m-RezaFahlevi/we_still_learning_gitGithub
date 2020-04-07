@@ -59,3 +59,13 @@ grand_children(X,Y) :- grand_parent(Y,X).
 
 %X is aunt of Y if X sister of Z and Z parent of X.
 aunt(X,Y) :- sister_improved(X,Z), parent(Z,Y).
+
+%Create an ancestor relation by using recursive rules/ recursive definition
+%In logic, |-:.thereExist(y) P(x,y).Q(y,z) --> forAll(x,z) Q(x,z).
+
+ancestor(X,Z):-
+	parent(X,Z). %Basis-step.
+
+ancestor(X,Z):-
+	parent(X,Y),
+	ancestor(Y,Z).	%Recursive-step.
